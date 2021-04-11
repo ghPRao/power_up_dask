@@ -23,7 +23,6 @@ data_dir = os.path.abspath(os.path.join(here, '../data'))
 
 
 def parse_args(args=None):
-    print('Entering parse_args')
     parser = argparse.ArgumentParser(description='Downloads, generates and prepares data for the Dask tutorial.')
     parser.add_argument('--no-ssl-verify', dest='no_ssl_verify', action='store_true',
                         default=False, help='Disables SSL verification.')
@@ -36,14 +35,13 @@ def parse_args(args=None):
 
 
 if not os.path.exists(data_dir):
-    print('in not path exists')
     raise OSError('data/ directory not found, aborting data preparation. ' \
                   'Restore it with "git checkout data" from the base ' \
                   'directory.')
 
 
 def flights(small=None):
-    print('in flights')
+
     start = time.time()
     flights_raw = os.path.join(data_dir, 'nycflights.tar.gz')
     flightdir = os.path.join(data_dir, 'nycflights')
@@ -94,7 +92,6 @@ def flights(small=None):
     print("** Created flights dataset! in {:0.2f}s**".format(end - start))
 
 def random_array(small=None):
-    print('in random array')
     if small is None:
         small = bool(os.environ.get("DASK_TUTORIAL_SMALL", False))
 
@@ -120,7 +117,6 @@ def random_array(small=None):
 
 
 def accounts_csvs(small=None):
-    print('in account_csv')
     t0 = time.time()
     if small is None:
         small = bool(os.environ.get("DASK_TUTORIAL_SMALL", False))
@@ -213,7 +209,6 @@ def create_weather(small=None):
 
 
 def main(args=None):
-    print('in main')
     args = parse_args(args)
 
     if (args.no_ssl_verify):
@@ -234,5 +229,4 @@ def main(args=None):
 
 
 if __name__ == '__main__':
-    print('__man__')
     sys.exit(main())
